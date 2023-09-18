@@ -29,30 +29,15 @@ const Page: FC = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent the default form submission behavior
     e.stopPropagation();
-    // Send the data to abc.com/login
-    // const form = new FormData(e.target as HTMLFormElement);
-    // const payload = Object.fromEntries(form)
-    // console.log('payload: ', payload);
+    const formData = new FormData(e.target as HTMLFormElement);
+    const form = new FormData(e.target as HTMLFormElement);
+    const payload = Object.fromEntries(form)
+    console.log('payload: ', payload);
 
-    const payload = new FormData();
-    payload.append("username", "tung");
-    payload.append("password", "tung1");
-
-    const { username, password } = formData;
-
-
-    const loginUrl = 'http://localhost:8080/login'; // Replace with the actual URL
-    // You can use fetch or axios to make a POST request to the login URL
-    // Example using fetch:
     try {
-    //   setIsLoading(true);
-      const response = await fetch({
-        method: 'POST',
-        body: payload as any,
-        url: loginUrl,
-        headers: {
-            "Content-Type": "multipart/form-data, application/json"
-        }
+      const response = await fetch('http://localhost:8080/login', {
+        method: "POST",
+        body: formData,
       });
 
       if (response.ok) {
@@ -87,7 +72,7 @@ const Page: FC = () => {
               variant={"default"}
               placeholder="email"
               name='username'
-              onChange={handleChange}
+              // onChange={handleChange}
               ></Inputtext>
             </div>
             <div className="mb-4">
@@ -97,7 +82,7 @@ const Page: FC = () => {
               placeholder="password"
               type="password"
               name='password'
-              onChange={handleChange}
+              // onChange={handleChange}
               ></Inputtext>
             </div>
             <Button
