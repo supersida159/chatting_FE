@@ -1,6 +1,6 @@
 'use client'
 
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import type { FC, FormEvent } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast'
@@ -8,16 +8,19 @@ import Image from "next/image";
 
 import Button from "@/components/Atom/Button/Button";
 import Inputtext from "@/components/Atom/Inputs/InputText"
+import Cookies from 'js-cookie';
+import { Router } from 'lucide-react';
 
 
 const Page: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
-
+  const r=useRouter()
   const [formData, setFormData] = useState({
     username: '', // Change 'username' to match your API's expected field name
     password: '',
   });
-
+  const [error, setError] = useState<string | null>(null);
+  
   const handleChange = (e: { target: { name: any; value: any; }; }) => {
     const { name, value } = e.target;
     setFormData({
@@ -29,11 +32,11 @@ const Page: FC = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent the default form submission behavior
     e.stopPropagation();
+    
     const formData = new FormData(e.target as HTMLFormElement);
     const form = new FormData(e.target as HTMLFormElement);
     const payload = Object.fromEntries(form)
     console.log('payload: ', payload);
-
     try {
       const response = await fetch('http://localhost:8080/login', {
         method: "POST",
@@ -41,18 +44,28 @@ const Page: FC = () => {
       });
 
       if (response.ok) {
-        // Handle a successful login here (e.g., redirect the user)
+        const data = await response.json()
+        console.log(data)
+        Cookies.set("Token",data.Token)
+        Cookies.set("refreshtoken",data.refreshtoken)
+        r.push('/')
       } else {
         // Handle login failure (e.g., show an error message)
         throw new Error('Login failed');
+        
       }
+      
     } catch (error) {
+      setError("wrong password")
       console.error("errorrrrrrrrrr: ", error);
       // Display an error message to the user
       toast.error('Something went wrong with your login.');
+      return
     } finally {
       setIsLoading(false);
     }
+    
+    
   }
 
   return (
@@ -67,6 +80,7 @@ const Page: FC = () => {
           </div>
           <form className="w-3/5 rounded-md font-medium lg:leading-8 sm:leading-3	" method='POST' onSubmit={handleSubmit}>
             <div className="mb-4">
+             {error && <div className="text-red-600">{error}</div>}
               <label htmlFor="email" className="block text-gray-600">Email</label>
               <Inputtext
               variant={"default"}
@@ -82,13 +96,14 @@ const Page: FC = () => {
               placeholder="password"
               type="password"
               name='password'
-              // onChange={handleChange}
+              // onChange={handleChange()}
               ></Inputtext>
             </div>
             <Button
               isLoading={isLoading}
               type='submit'
             >
+
               {isLoading ? (
                 <h1>Loading</h1>
               ) : (
