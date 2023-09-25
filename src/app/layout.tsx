@@ -1,3 +1,4 @@
+import Guard from '@/components/account/auth'
 import './globals.css'
 import type { Metadata } from 'next'
 // import { middleware } from '../../middleware'
@@ -15,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body >
-        {children}
+        <Guard>{children}</Guard>
         </body>
     </html>
   )
