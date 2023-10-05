@@ -4,7 +4,7 @@ import { FC } from "react";
 const Navbar: FC = () =>{
     
     return <>
-    <nav className="bg-slate-200 border-gray-700 dark:bg-gray-900 dark:border-gray-700">
+    <nav className="flex-non bg-slate-200 border-gray-700 dark:bg-gray-900 dark:border-gray-700">
       <div className="w-full flex  items-center justify-between mx-auto p-4">
         <a href="#" className="flex items-center">
             <img src="https://flowbite.com/docs/images/logo.svg" className="h-8 mr-3" alt="Flowbite Logo" />

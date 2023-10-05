@@ -9,7 +9,7 @@ export async function fetchWithToken(url:string, options: RequestInit) {
     // If the token is missing or invalid, redirect to the login page
     if (!token || token === 'invalid') {
       const router = useRouter()
-      router.push('/login');
+      router.push('/Login');
       return {token:"invalid"};
     }
   

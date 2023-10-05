@@ -17,7 +17,10 @@ module.exports = {
         '1b1b1b': '#1B1B1B', // Define your custom background color
         'grey-300': '#D8D8D8'
       },
+      
     },
+
+    
   },
   plugins: [],
 }
