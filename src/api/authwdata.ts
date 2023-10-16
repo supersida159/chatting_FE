@@ -18,7 +18,9 @@ export async function fetchWithToken(url:string, options: RequestInit) {
       ...options.headers,
       Authorization: token,
     };
-  
+
+    console.log(options)
+
     try {
       const response = await fetch(url, options);
   
