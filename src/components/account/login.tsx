@@ -86,7 +86,6 @@ const Page: FC = () => {
               variant={"default"}
               placeholder="email"
               name='username'
-              Functype={1}
               // onChange={handleChange}
               ></Inputtext>
             </div>
@@ -97,7 +96,6 @@ const Page: FC = () => {
               placeholder="password"
               type="password"
               name='password'
-              Functype={1}
               // onChange={handleChange()}
               ></Inputtext>
             </div>

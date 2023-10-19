@@ -1,6 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 // import { middleware } from '../../middleware'
+import { GlobalContextProvider } from '@/context/store'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -15,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className='h-screen'>
-        {children}
+       <GlobalContextProvider>{children}</GlobalContextProvider>
         </body>
     </html>
   )
